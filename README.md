@@ -58,7 +58,7 @@ Uses Python 3.5 and anaconda
 
 Copying the full python environment will take 10-15 minutes on a slow internet connection. However, OS specifics aside, it will get you a full mirror of my python environment. Then you should be able run all the notebooks and scripts with, hopefully, no errors.
 
-I didn't include the raw data for avoid slowing down git commits. It can be found here: [link to raw data](https://www.kaggle.com/snap/amazon-fine-food-reviews)
+I didn't include the raw data to avoid slowing down git commits. It can be found here: [link to raw data](https://www.kaggle.com/snap/amazon-fine-food-reviews)
 
 ### Windows
 TO DO
