@@ -22,11 +22,11 @@ The preliminary analysis shows that a reasonably predictive model can be build w
 
 ![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/ROC_Basic.png "AUC ROC on Test Data of Basic Models")  
 
-The best models, k-nearest neighbors and random forest, achieved AUC ROC of 0.8 and 0.81 respectively. While these models are not "highly predictive" (AUC ROC of 0.9+), this is a proof of concept. With more aggressive model training and a more diverse set of macro-level text summary statistics, perhaps the performance of models with word-specific features can be rivaled.
+The best models, k-nearest neighbors and random forest, achieved AUC ROC of 0.8 and 0.81 respectively. While these models are not "highly predictive" (AUC ROC of 0.9+), this is a proof of concept. Perhaps, with more aggressive model training and a more diverse set of macro-level text summary statistics, the performance of models with word-specific features can be rivaled.
 
 ### Strategy and Tools
 
-For its combination of speed and parsimony, I used spacy to process the text and count the number of words/sentences. The package textstat was used for the readability score (Automated Readability Index) and the NLTK package was used for sentiment analysis. All the machine learning was done with scikit-learn.
+For its combination of speed and parsimony, I used [spacy](https://spacy.io/) to process the text and count the number of words/sentences. The package [textstat](https://pypi.python.org/pypi/textstat/0.1.6) was used for the readability score (Automated Readability Index) and the [NLTK](http://www.nltk.org/install.html) package was used for sentiment analysis. All the machine learning was done with scikit-learn.
 
 ### Next Steps
 
