@@ -22,7 +22,7 @@ The preliminary analysis shows that a reasonably predictive model can be build w
 
 ![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/ROC_Basic.png "AUC ROC on Test Data of Basic Models")  
 
-The best models, k-nearest neighbors and random forest, achieved AUC ROC of 0.8 and 0.81 respectively. While these models are not "highly predictive" (AUC ROC of 0.9+), this is a proof of concept. Perhaps, with more aggressive model training and a more diverse set of macro-level text summary statistics, the performance of models with word-specific features can be rivaled.
+The best models, k-nearest neighbors, bagged trees, and random forest, achieved AUC ROC of 0.8, 0.8, and 0.81 respectively. While these models are not "highly predictive" (AUC ROC of 0.9+), this is a proof of concept. Perhaps, with more aggressive model training and a more diverse set of macro-level text summary statistics, the performance of models with word-specific features can be rivaled.
 
 ### Strategy and Tools
 
@@ -35,7 +35,8 @@ Next I want to improve the model performance by experimenting with a more divers
 1. Different measures of text readability
 2. Using sentence, as oppose to whole-review level, measures of sentiment
 3. Use vector representations of words to capture semantic summaries of reviews
-4. Use topic modeling to identify topics that are highly predictive of review usefulness
+4. Formally addressing the moderate class imbalance using SMOTE, over/under sampling, and Tomek Link removal
+5. Use topic modeling to identify topics that are highly predictive of review usefulness
 
 ### Key Files
 
