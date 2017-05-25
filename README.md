@@ -3,7 +3,7 @@ A series of NLP projects using the Amazon Fine Food Reviews dataset. This reposi
 
 ## Project One: Predicting Review Helpfulness Using Macro-Level Text Summary Statistics  
 
-_Word Cloud of Helpful Reviews_
+_Word Cloud of Helpful Reviews_  
 ![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/helpful_reviews_word_cloud.png "Word Cloud of Helpful Reviews")  
 
 ### Summary and Motivation  
