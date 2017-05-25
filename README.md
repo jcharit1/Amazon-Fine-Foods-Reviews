@@ -4,6 +4,7 @@ A series of NLP projects using the Amazon Fine Food Reviews dataset. This reposi
 ## Project One: Predicting Review Helpfulness Using Macro-Level Text Summary Statistics  
 
 ![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/helpful_reviews_word_cloud.png "Word Cloud of Helpful Reviews")  
+_(Word Cloud of Helpful Reviews_
 
 ### Summary and Motivation  
 
@@ -14,15 +15,26 @@ The goal of this project is to determine if a review's helpfulness can be predic
 3. Readability 
 4. Sentiment Metrics
 
-The motivations are multi-fold: I am curious about the predictive power of macro-level text summary statistics and using word-specific features can make training, storing, and deploying predictive models fairly computational intensive. 
+The motivations are multi-fold: I am curious about the predictive power of macro-level text summary statistics and using word-specific features can make training, storing, and deploying predictive models more computational intensive. 
 
 ### Results 
 
 The preliminary analysis shows that a reasonably predictive model can be build without word specific features:  
 
-![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/ROC_Basic.png "AUC ROC on Test Data of Basic Models")  
+![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/ROC_Basic.png "AUC ROC on Test Data of Macro-Text Stats Models")  
 
-The best models, k-nearest neighbors, bagged trees, and random forest, achieved AUC ROC of 0.8, 0.8, and 0.81 respectively. While these models are not "highly predictive" (AUC ROC of 0.9+), this is a proof of concept. Perhaps, with more aggressive model training and a more diverse set of macro-level text summary statistics, the performance of models with word-specific features can be rivaled.
+The best models, k-nearest neighbors, bagged trees, and random forest, achieved AUC ROC of 0.8, 0.8, and 0.81 respectively. While these models are not "highly predictive" (AUC ROC of 0.9+), this is a proof of concept.  
+
+Using a word-specific features approach like bag of words, only resulted in a marginal improvement in predictive performance:  
+
+
+![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/ROC_Basic_BOW.png "AUC ROC on Test Data of BOW Models") 
+
+To be fair, to shorten the training time, I was forced to limit the max_features of the TfidfVectorizer to just 200, I didn't apply any LDA-based dimensionality reduction, and I used fewer models. All three decisions have the potential to significantly limit the performance of word-feature based text classification models. On the other hand, even with these steps to shorten the training time, the models built using macro-level text summary statistics were still trained 10-12x faster. At the very least, this shows that using macro-level text summary statistics as features can be a good option for quickly turning around a solid minimum viable product for prospective clients -- buying your team time to experiment with more time-consuming approaches. 
+
+I also tried combining both approaches. The overall performance improved marginally:  
+
+![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/ROC_Basic_BOW_MERGED.png "AUC ROC on Test Data of BOW + Macro-Text Stats Models")
 
 ### Strategy and Tools
 
@@ -30,19 +42,21 @@ For its combination of speed and parsimony, I used [spacy](https://spacy.io/) to
 
 ### Next Steps
 
-Next I want to improve the model performance by experimenting with a more diverse set of macro-level text summary statistics. I will try:
+Next I want to improve the model performance by experimenting with:
 
 1. Different measures of text readability
 2. Using sentence, as oppose to whole-review level, measures of sentiment
 3. Use vector representations of words to capture semantic summaries of reviews
-4. Formally addressing the moderate class imbalance using SMOTE, over/under sampling, and Tomek Link removal
+4. Formally addressing the moderate class imbalance problem using SMOTE, over/under sampling, and Tomek Link removal
 5. Use topic modeling to identify topics that are highly predictive of review usefulness
 
 ### Key Files
 
 1. [Code to clean the raw data](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/code/data_cleaning.ipynb)
 2. [Code to finalized the raw data](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/code/finalizing_model_data.ipynb)
-3. [Code for training the models](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/code/model_building_part_1.ipynb)
+3. [Code for training the basic macro-text stats models](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/code/model_building_part_1.ipynb)
+4. [Code for training the bag of words models](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/code/model_building_part_2.ipynb)
+5. [Code for training the combined bag of words and macro-text stats models](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/code/model_building_part_3.ipynb)
 
 ## Installing
 
