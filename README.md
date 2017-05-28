@@ -6,7 +6,7 @@ A series of NLP projects using the Amazon Fine Food Reviews dataset. This reposi
 _Word Cloud of Helpful Reviews_  
 ![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/helpful_reviews_word_cloud.png "Word Cloud of Helpful Reviews")  
 
-I marked a review as helpful if the number of times customers rated it as helpful divided by the total number of times they gave it any rating (positive or negative) was greater than or equal to 90%. Due to fairly dramatic changes in the data over time, I restricted the analysis to the most recent year of data, 2012. The data can be found here: [https://snap.stanford.edu/data/web-FineFoods.html](https://snap.stanford.edu/data/web-FineFoods.html). 
+I marked a review as helpful if the number of times customers rated it as helpful divided by the total number of times they gave it any rating (positive or negative) was greater than or equal to 90%. Due to fairly dramatic changes in the data over time, I restricted the analysis to the most recent year of data, 2012. The data can be found here: [https://snap.stanford.edu/data/web-FineFoods.html](https://snap.stanford.edu/data/web-FineFoods.html). About 22% of the reviews were helpful. 
 
 ### Summary and Motivation  
 
