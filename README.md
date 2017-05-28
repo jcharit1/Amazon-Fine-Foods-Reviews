@@ -15,26 +15,40 @@ The goal of this project is to determine if a review's helpfulness can be predic
 3. Readability 
 4. Sentiment Metrics
 
-The motivations are multi-fold: I am curious about the predictive power of macro-level text summary statistics and using word-specific features can make training, storing, and deploying predictive models more computational intensive. 
+The motivations are multi-fold: I am curious about the predictive power of macro-level text summary statistics and using word-specific features can make training, storing, and deploying predictive models more computationally intensive. 
+
+Stepping back, the whole excercise of predicting review helpfulness is worthwhile because it can improve customer statisfaction. A major annoyance from online shopping is the product will not be as satistisfying as it is advertised. Many shoppers depend on helpful reviews to avoid buyer's remorse. Therefore placing helpful reviews front and center for as many products as possible can improve the shopping experience, customer retention, and eventually profits. 
+
+Traditionally online businesses solve this problem by allowing customers to rate the product reviews of other customers, then rank the reviews by their ratings. This can be insufficient for very popular products where potentially highly helpful reviews are never rated by customers because they are drowned out by unhelpful or moderately helpful reviews. Also, for new or niche products, some potentially highly useful reviews can go unrate because customer volume to the product page is too low. Predictive models can step in to identify potentially highly helpful reviews and help the web design team ensure that customers can easily find them.  
+
+Now given the potential business benefit of a review helpfulness model, why not spend as much resources as needed to train, store, and deploy one? Every resource spent on one project is a resource not spent on another project, therefore it is important to be aware of options for intelligently trading off the resources invested in a project with the terminal quality of that project.  
 
 ### Results 
 
-The preliminary analysis shows that a reasonably predictive model can be build without word specific features:  
+The preliminary analysis shows that a reasonably predictive model can be built without word specific features:  
 
 ![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/ROC_Basic.png "AUC ROC on Test Data of Macro-Text Stats Models")  
 
-The best models, k-nearest neighbors, bagged trees, and random forest, achieved AUC ROC of 0.8, 0.8, and 0.81 respectively. While these models are not "highly predictive" (AUC ROC of 0.9+), this is a proof of concept.  
+The Area under the curve of the ROC (AUC ROC) of the best models, k-nearest neighbors, bagged trees, and random forest, were 0.8, 0.8, and 0.81 respectively. While these models are not "highly predictive" (AUC ROC of 0.9+), this is a proof of concept.  
 
-Using a word-specific features approach like bag of words, only resulted in a marginal improvement in predictive performance:  
+Using a word-specific features approach like bag of words only resulted in a moderate improvement in predictive performance:  
 
 
 ![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/ROC_Basic_BOW.png "AUC ROC on Test Data of BOW Models") 
 
-To be fair, to shorten the training time, I was forced to limit the max_features of the TfidfVectorizer to just 200, I didn't apply any LDA-based dimensionality reduction, and I used fewer models. All three decisions have the potential to significantly limit the performance of word-feature based text classification models. On the other hand, even with these steps to shorten the training time, the models built using macro-level text summary statistics were still trained 10-12x faster. At the very least, this shows that using macro-level text summary statistics as features can be a good option for quickly turning around a solid minimum viable product for prospective clients -- buying your team time to experiment with more time-consuming approaches. 
+To be fair, since I was training on a personal computer, I was forced to make decisions that potentially significantly limited the performance of the bag of words approach, but kept the training time under 48 hours.  
 
-I also tried combining both approaches. The overall performance improved marginally:  
+For example, I limited the number of words that can be used as features to 200 (setting max_features of the TfidfVectorizer estimator to 200). It is possible that the words that are most predictive of helpfulness appear infrequently enough that they will drop out under the 200 word feature limit. The extent of this issue was partially attenuated by the text preprocessing I did when preparing the reviews for the model. I used the [lemma](https://en.wikipedia.org/wiki/Lemmatisation) of the words to collapse the many forms that they can take ([their inflected forms](https://en.wikipedia.org/wiki/Inflection)) into one base form [their lexeme](https://en.wikipedia.org/wiki/Lexeme). This essentially does a preliminary dimensionality reduction of the data, reducing the number of highly infrequent words and, as a result, the number of words that will be dropped out by the word feature limit.  
 
-![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/ROC_Basic_BOW_MERGED.png "AUC ROC on Test Data of BOW + Macro-Text Stats Models")
+Also, I didn't apply any Latent Dirichlet Allocation (LDA) analysis to the word features (or rather I gave up as the training time prolonged beyond what was practical). LDA is a powerful technique for discovering topics included in documents. It is possible that LDA could have identified the key topics that make food reviews very helpful, like taste or appearance of the food for example, and therefore boosted the performance of the models.  
+
+On the other hand, however, even with these steps to shorten the training time, the models built using macro-level text summary statistics were still trained 10-12x faster. At the very least, this shows that using macro-level text summary statistics as features can be a good option for quickly turning around a solid minimum viable product -- buying the data science team time to experiment with more time-consuming approaches. Moreover, while a data science team will have access to much more powerfull computers, they may need to train over a much larger dataset to ensure that the model is reliable for a wide variety of product reviews. Therefore, even for highly resourced teams, options for intelligently trading off model quality and the time it takes to train and deploy them are still useful.
+
+Finally, I tried combining both approaches. The plot below shows the bootstrapped AUC ROC of the random forest model for when the macro-text stats and/or bag of words features were used:  
+
+![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/ROC_Histogram_Basic_BOW_MERGED.png "Comparison of AUC ROC on Test Data of BOW + Macro-Text Stats Models") 
+
+Interestingly, though not entirely surprising, combining both types of features improved the model across the board. Both the minimum, maximum, and mean AUC ROC improved.
 
 ### Strategy and Tools
 
