@@ -46,7 +46,7 @@ On the other hand, however, even with these steps to shorten the training time, 
 
 Finally, I tried combining both approaches. The plot below shows the bootstrapped AUC ROC of the random forest model for when the macro-text stats and/or bag of words features were used:  
 
-![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/ROC_Histogram_Basic_BOW_MERGED.png "Comparison of AUC ROC on Test Data of BOW + Macro-Text Stats Models") 
+![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/BoxPlot_ROC_MacText_BOX.png "Comparison of AUC ROC on Test Data of BOW + Macro-Text Stats Models") 
 
 Interestingly, though not entirely surprising, combining both types of features improved the model across the board. Both the minimum, maximum, and mean AUC ROC improved.
 
