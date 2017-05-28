@@ -6,6 +6,8 @@ A series of NLP projects using the Amazon Fine Food Reviews dataset. This reposi
 _Word Cloud of Helpful Reviews_  
 ![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/helpful_reviews_word_cloud.png "Word Cloud of Helpful Reviews")  
 
+I marked a review as helpful if the number of times customers rated it as helpful divided by the total number of times they gave it any rating (positive or negative) was greater than or equal to 90%. Due to fairly dramatic changes in the data over time, I restricted the analysis to the most recent year of data, 2012. The data can be found here: [https://snap.stanford.edu/data/web-FineFoods.html](https://snap.stanford.edu/data/web-FineFoods.html). 
+
 ### Summary and Motivation  
 
 The goal of this project is to determine if a review's helpfulness can be predicted without using word specific features (i.e. bag of words and its derivatives). Instead I used macro-level text summary statistics such as:  
@@ -29,16 +31,16 @@ The preliminary analysis shows that a reasonably predictive model can be built w
 
 ![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/ROC_Basic.png "AUC ROC on Test Data of Macro-Text Stats Models")  
 
-The Area under the curve of the ROC (AUC ROC) of the best models, k-nearest neighbors, bagged trees, and random forest, were 0.8, 0.8, and 0.81 respectively. While these models are not "highly predictive" (AUC ROC of 0.9+), this is a proof of concept.  
+The area under the curve of the ROC (AUC ROC) of the best models, k-nearest neighbors, bagged trees, and random forest, were 0.8, 0.8, and 0.81 respectively. While these models are not "highly predictive" (AUC ROC of 0.9+), this is a proof of concept.  
 
 Using a word-specific features approach like bag of words only resulted in a moderate improvement in predictive performance:  
 
 
 ![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/ROC_Basic_BOW.png "AUC ROC on Test Data of BOW Models") 
 
-To be fair, since I was training on a personal computer, I was forced to make decisions that potentially significantly limited the performance of the bag of words approach, but kept the training time under 48 hours.  
+The AUC ROC of best model for both approaches, the random forest, improved from 0.81 to 0.83. To be fair, since I was training on a personal computer, I was forced to make decisions that potentially significantly limited the performance of the bag of words approach, but kept the training time under 48 hours.  
 
-For example, I limited the number of words that can be used as features to 200 (setting max_features of the TfidfVectorizer estimator to 200). It is possible that the words that are most predictive of helpfulness appear infrequently enough that they will drop out under the 200 word feature limit. The extent of this issue was partially attenuated by the text preprocessing I did when preparing the reviews for the model. I used the [lemma](https://en.wikipedia.org/wiki/Lemmatisation) of the words to collapse the many forms that they can take ([their inflected forms](https://en.wikipedia.org/wiki/Inflection)) into one base form [their lexeme](https://en.wikipedia.org/wiki/Lexeme). This essentially does a preliminary dimensionality reduction of the data, reducing the number of highly infrequent words and, as a result, the number of words that will be dropped out by the word feature limit.  
+For example, I limited the number of words that can be used as features to 200 (setting max_features of the TfidfVectorizer estimator to 200). It is possible that the words that are most predictive of helpfulness appear infrequently enough that they will drop out under the 200 word feature limit. The extent of this issue was partially attenuated by the text preprocessing I did when preparing the reviews for the model. I used the [lemma](https://en.wikipedia.org/wiki/Lemmatisation) of the words to collapse the many forms that they can take ([their inflected forms](https://en.wikipedia.org/wiki/Inflection)) into one base form ([their lexeme](https://en.wikipedia.org/wiki/Lexeme)). This essentially does a preliminary dimensionality reduction of the data, reducing the number of highly infrequent words and, as a result, the number of words that will be dropped out by the word feature limit.  
 
 Also, I didn't apply any Latent Dirichlet Allocation (LDA) analysis to the word features (or rather I gave up as the training time prolonged beyond what was practical). LDA is a powerful technique for discovering topics included in documents. It is possible that LDA could have identified the key topics that make food reviews very helpful, like taste or appearance of the food for example, and therefore boosted the performance of the models.  
 
