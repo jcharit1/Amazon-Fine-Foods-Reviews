@@ -50,7 +50,9 @@ Finally, I tried combining both approaches. The plot below shows the bootstrappe
 
 ![alt text](https://github.com/jcharit1/Amazon-Fine-Foods-Reviews/blob/master/plots/BoxPlot_ROC_MacText_BOX.png "Comparison of AUC ROC on Test Data of BOW + Macro-Text Stats Models") 
 
-Interestingly, though not entirely surprising, combining both types of features improved the model across the board. Both the minimum, maximum, and mean AUC ROC improved.
+Interestingly, though not entirely surprising, combining both types of features improved the model across the board. Both the minimum, maximum, and mean AUC ROC improved.  
+
+Another interesting observation is the models that performed the best where those that create highly non-linear decision boundaries: the tree-based models and the nearest neighbors model. This probably means that the true decision boundary is highly non-linear and the classes might be compact within the feature space. It is also possible that the logistic, QDA, and naive bayes models were compromised by uni- and multivariate outliers. The tree-based models and nearest neighbors models are also more robust to outliers. Correcting for them more aggressively would be a useful follow up.
 
 ### Strategy and Tools
 
